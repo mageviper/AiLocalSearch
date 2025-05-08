@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="mageviper" translate="label" sortOrder="100">
+            <label>Mageviper</label>
+        </tab>
+        <section id="ailocalsearch" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>AI Local Search</label>
+            <tab>mageviper</tab>
+            <resource>Mageviper_AiLocalSearch::config_ailocalsearch</resource>
+            <group id="ollama_service" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Ollama Service Configuration</label>
+                <field id="api_endpoint" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Endpoint</label>
+                    <comment>e.g., http://localhost:11434</comment>
+                </field>
+                <field id="default_model" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default LLM Model</label>
+                    <source_model>Mageviper\AiLocalSearch\Model\Config\Source\OllamaModels</source_model>
+                    <comment>e.g., llama3, mistral</comment>
+                </field>
+                <field id="request_timeout" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Request Timeout (seconds)</label>
+                </field>
+                <field id="api_key" translate="label" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Key (if secured)</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+            </group>
+            <group id="qdrant_service" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Qdrant Service Configuration</label>
+                <field id="api_endpoint" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Qdrant API Endpoint</label>
+                    <comment>e.g., http://localhost:6333</comment>
+                </field>
+                <field id="api_key" translate="label" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Key (if secured)</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="default_collection_name" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Collection Name</label>
+                    <comment>e.g., magento_products</comment>
+                </field>
+                <field id="vector_dimensionality" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Vector Dimensionality</label>
+                    <comment>Must match the output of your chosen embedding model.</comment>
+                </field>
+                <field id="distance_metric" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Distance Metric</label>
+                    <source_model>Mageviper\AiLocalSearch\Model\Config\Source\DistanceMetric</source_model>
+                    <comment>e.g., Cosine, Dot, Euclid</comment>
+                </field>
+            </group>
+            <group id="embedding_service" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Embedding Service Configuration</label>
+                <field id="model_source" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Embedding Model Source</label>
+                    <source_model>Mageviper\AiLocalSearch\Model\Config\Source\EmbeddingModelSource</source_model>
+                </field>
+                <field id="external_microservice_url" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>External Microservice Endpoint URL</label>
+                    <comment>Required if 'External Microservice' is selected as model source.</comment>
+                    <depends>
+                        <field id="model_source">external</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="feature_toggles" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Feature Toggles</label>
+                <field id="enable_semantic_search" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Semantic Search</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_ai_recommendations" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable AI Recommendations</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_ai_descriptions" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable AI-generated Descriptions</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_auto_indexing" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Automatic Product Indexing</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
